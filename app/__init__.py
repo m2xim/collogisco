@@ -12,3 +12,11 @@ def get_version_app():
     return __version__
 
 from app import views, models
+
+from utils import cdr
+
+app.jinja_env.globals.update(decode_time_dif=cdr.decode_time_dif)
+app.jinja_env.globals.update(enumerate=enumerate)
+app.jinja_env.globals.update(int=int)
+app.jinja_env.globals.update(cls_cdr_record=models.CdrRecord)
+

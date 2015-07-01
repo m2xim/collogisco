@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Import</h1>
+    <table class="tb_data">
+        <thead>
+        <tr>
+            <td>FileName</td>
+            <td>DateTime ADD</td>
+            <td>DateTime IMPORT</td>
+            <td>import</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for cdr_source in cdr_sources %}
+            <tr>
+                <td>{{ cdr_source.filename }}</td>
+                <td>{{ cdr_source.dt_add }}</td>
+                <td>{{ cdr_source.dt_import }}</td>
+                <td>
+                    {% if cdr_source.is_parsed %}
+                        success import
+                    {% else %}
+                        <a href="/import/{{ cdr_source.id }}">import</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

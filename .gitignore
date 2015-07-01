@@ -58,3 +58,6 @@ target/
 
 # IDE
 .idea/
+
+# other
+_data/cdr.*
