@@ -21,17 +21,17 @@ class CdrRecord(db.Model):
     # ---- CDR DATA ----
 
     #  0    Long    System time stamp when CDR is captured.
-    unix_time = db.Column(db.Integer, nullable=True, info={'col': 0, 'name': 'Unix time'})  # 0
+    unix_time = db.Column(db.Integer, nullable=True, info={'col': 0, 'name': 'Unix time'}, index=True)  # 0
     # 20    String    Username for authentication. Usually this is the same as the calling number.
-    username = db.Column(db.String(255), nullable=True, info={'col': 20, 'name': 'Username'})  # 20
+    username = db.Column(db.String(255), nullable=True, info={'col': 20, 'name': 'Username'}, index=True)  # 20
     #  5    String    Number that this call was connected to in E.164 format.
-    peer_address = db.Column(db.String(255), nullable=True, info={'col': 5, 'name': 'Peer address'})  # 5
+    peer_address = db.Column(db.String(255), nullable=True, info={'col': 5, 'name': 'Peer address'}, index=True)  # 5
     #  8    String    Time at which call is alerting.
     alert_time = db.Column(db.DateTime, nullable=True, info={'col': 8, 'name': 'Alert time'})  # 8
     # 21    String    Calling number.
-    clid = db.Column(db.String(255), nullable=True, info={'col': 21, 'name': 'Calling number'})  # 21
+    clid = db.Column(db.String(255), nullable=True, info={'col': 21, 'name': 'Calling number'}, index=True)  # 21
     # 22    String    Called number.
-    dnis = db.Column(db.String(255), nullable=True, info={'col': 22, 'name': 'Called number'})  # 22
+    dnis = db.Column(db.String(255), nullable=True, info={'col': 22, 'name': 'Called number'}, index=True)  # 22
     #  9    String    Connect time in NTP format
     h323_connect_time = db.Column(db.DateTime, nullable=True, info={'col': 9, 'name': 'Connect time'})  # 9
     # 10    String    Disconnect time in NTP format
