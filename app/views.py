@@ -1,5 +1,6 @@
+import math
 import config
-from flask import render_template, send_from_directory, abort, redirect
+from flask import render_template, send_from_directory, abort, redirect, request
 from app import app, get_version_app, models
 import os
 from utils import cdr
@@ -9,14 +10,30 @@ __base_path__ = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/', methods=['GET'])
 def index():
+
+    # paginator
+    page_current = 0
+    if 'p' in request.args:
+        page_current = int(request.args['p'])
+        if page_current < 1:
+            page_current = 1
+        page_current -= 1
+
+    page_count = int(math.ceil(models.CdrRecord.query.count() / float(config.VIEW_LIMIT_VISIBLE_RECORDS)))
+
     cdrRecs = models.CdrRecord.query \
         .order_by(models.CdrRecord.unix_time.desc()) \
-        .limit(config.VIEW_LIMIT_VISIBLE_RECORDS)
+        .limit(config.VIEW_LIMIT_VISIBLE_RECORDS) \
+        .offset(page_current * config.VIEW_LIMIT_VISIBLE_RECORDS)
 
     return render_template(
         "_blocks/_b_main.html",
         cdr_records=cdrRecs,
-        _version_=get_version_app()
+        _version_=get_version_app(),
+        paginator={
+            'count': page_count,
+            'current': page_current
+        }
     )
 
 

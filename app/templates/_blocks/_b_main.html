@@ -74,4 +74,15 @@
         </tbody>
     </table>
 
+    <ul class="paginator">
+        {% for i in range(0, paginator.count) %}
+            {% set p = i + 1 %}
+            {% if  paginator.current != i %}
+                <li><a href="?p={{ p }}">{{ p }}</a></li>
+            {% else %}
+                <li><a class="current" href="#">{{ p }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
 {% endblock %}

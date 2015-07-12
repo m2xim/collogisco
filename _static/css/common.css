@@ -81,3 +81,31 @@ table.tb_data tr.sep {
     color: #fff;
     background: #6600ff;
 }
+
+ul.paginator {
+    margin-top: 15px;
+}
+
+ul.paginator li {
+    display: inline-block;
+}
+
+ul.paginator li a {
+    display: block;
+    padding: 2px 4px;
+    background: #ccc;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #555;
+    cursor: pointer;
+}
+
+ul.paginator li a:hover {
+    background: #eee;
+}
+
+ul.paginator li a.current {
+    border-color: #ccc;
+    background-color: #FFF;
+}
