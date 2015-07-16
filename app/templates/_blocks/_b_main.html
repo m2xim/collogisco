@@ -21,7 +21,9 @@
         <tbody>
         {% for i, cdr_record in enumerate(cdr_records) %}
             {% if i !=0 %}
-                {% if int(cdr_record.h323_connect_time.strftime('%d')) != int(cdr_records[i-1].h323_connect_time.strftime('%d')) %}
+                {% if cdr_record.h323_connect_time is not none
+                and cdr_records[i-1].h323_connect_time is not none
+                and int(cdr_record.h323_connect_time.strftime('%d')) != int(cdr_records[i-1].h323_connect_time.strftime('%d')) %}
                     <tr class="sep">
                         <td colspan="10">
                             {{ cdr_record.h323_connect_time.strftime('%d.%m.%Y') }}
@@ -68,7 +70,11 @@
                     {% endif %}
                 </td>
 
-                <td style="text-align: right;">{{ decode_time_dif(cdr_record.time_dif) }}</td>
+                <td style="text-align: right;">
+                    {% if cdr_record.time_dif is not none %}
+                        {{ decode_time_dif(cdr_record.time_dif) }}
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
