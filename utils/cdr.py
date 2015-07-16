@@ -77,6 +77,8 @@ class CDRParser(object):
         return s
 
     def __fix_datetime(self, s):
+        if s[:1] is '*':
+            s = s[1:]
         s = self.__fix_str(s)
         if s is not None:
             try:
@@ -84,6 +86,7 @@ class CDRParser(object):
                 s = datetime.strptime(s, '%H:%M:%S.%f Moscow %a %b %d %Y')
             except Exception as e:
                 print e
+                return None
         return s
 
 
