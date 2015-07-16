@@ -1,0 +1,25 @@
+<li>
+    <div class="fb-f-item">
+        <input
+                readonly="readonly"
+                class="input-object-fb-f-i"
+                type="text"
+                data-key="<%= _column.key %>"
+                data-type="<%= _column.type %>"
+                value="<%= _column.name %>"
+                >
+    </div>
+    <div class="fb-f-item">
+        <select class="input-filter-fb-f-i">
+            <% for (var i=0; i<_filters.length; i++) { %>
+            <option value="<%= _filters[i] %>"><%= _filters[i] %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="fb-f-item">
+        <input class="input-value-fb-f-i" type="text">
+    </div>
+    <div class="fb-f-item">
+        <button class="btn-del-fb-f-i">x</button>
+    </div>
+</li>

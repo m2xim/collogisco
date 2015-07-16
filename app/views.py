@@ -1,16 +1,15 @@
 import math
 import config
-from flask import render_template, send_from_directory, abort, redirect, request
+from flask import render_template, send_from_directory, abort, redirect, request, jsonify
 from app import app, get_version_app, models
 import os
-from utils import cdr
+from utils import cdr, utils_model
 
 __base_path__ = os.path.dirname(os.path.abspath(__file__))
 
 
 @app.route('/', methods=['GET'])
 def index():
-
     # paginator
     page_current = 0
     if 'p' in request.args:
@@ -33,6 +32,9 @@ def index():
         paginator={
             'count': page_count,
             'current': page_current
+        },
+        js_vars={
+            'columns': utils_model.get_columns_model_record()
         }
     )
 

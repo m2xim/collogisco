@@ -2,6 +2,28 @@
 
 {% block content %}
     <h1>Main</h1>
+
+
+    <div id="filter-box">
+        <div class="fb-toolbar">
+            <select class="select-key-fb-t">
+                {% for column in js_vars.columns %}
+                    {% if column.info_name %}
+                        <option value="{{ column.key }}">
+                            {{ column.info_name }}
+                        </option>
+                    {% endif %}
+                {% endfor %}
+
+            </select>
+            <button class="btn-add-fb-t">Add</button>
+        </div>
+        <div class="fb-filters"><ul></ul></div>
+        <div class="fb-toolbar right">
+            <button class="btn-submit-fb-t">Submit</button>
+        </div>
+    </div>
+
     <table class="tb_data">
         <thead>
         <tr>
@@ -91,4 +113,23 @@
         {% endfor %}
     </ul>
 
+{% endblock %}
+
+
+{% block js_vars %}
+    <script type="text/javascript">
+        var f_columns = {};
+        {% for column in js_vars.columns %}
+            f_columns['{{ column.key }}'] = {
+                key: '{{ column.key }}',
+                name: '{{ column.info_name }}',
+                type: '{{ column.type }}'
+            };
+        {% endfor %}
+    </script>
+
+    <script type="text/javascript" src="/_static/js/ejs/ejs.js"></script>
+    <script type="text/javascript" src="/_static/js/ejs/view.js"></script>
+
+    <script type="text/javascript" src="/_static/js/common.js"></script>
 {% endblock %}

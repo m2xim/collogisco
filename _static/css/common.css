@@ -109,3 +109,59 @@ ul.paginator li a.current {
     border-color: #ccc;
     background-color: #FFF;
 }
+
+/* ---- filter box ---- */
+#filter-box {
+    width: 700px;
+    border: 1px dotted #444;
+    padding: 4px;
+    margin-bottom: 10px;
+}
+
+#filter-box input,
+#filter-box button,
+#filter-box select {
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+#filter-box .fb-toolbar {
+    background: #eee;
+    width: 684px;
+    padding: 4px;
+    margin: 4px;
+}
+
+#filter-box .fb-toolbar.right {
+    text-align: right;
+}
+
+#filter-box .select-key-fb-t {
+    width: 620px;
+}
+
+#filter-box .btn-add-fb-t,
+#filter-box .btn-submit-fb-t {
+    width: 60px;
+}
+
+#filter-box .fb-filters {
+    padding: 8px;
+    background: rgba(255, 255, 0, 0.18);
+}
+
+#filter-box .fb-f-item .input-filter-fb-f-i {
+    width: 50px;
+}
+
+#filter-box .fb-f-item .input-object-fb-f-i,
+#filter-box .fb-f-item .input-value-fb-f-i {
+    width: 280px;
+}
+
+#filter-box .fb-f-item {
+    display: inline-block;
+}
+
+
