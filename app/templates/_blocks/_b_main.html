@@ -18,100 +18,17 @@
             </select>
             <button class="btn-add-fb-t">Add</button>
         </div>
-        <div class="fb-filters"><ul></ul></div>
+        <div class="fb-filters">
+            <ul></ul>
+        </div>
         <div class="fb-toolbar right">
             <button class="btn-submit-fb-t">Submit</button>
         </div>
     </div>
 
-    <table class="tb_data">
-        <thead>
-        <tr>
-            <td>{{ cls_cdr_record.username.info['name'] }}</td>
-            <td>{{ cls_cdr_record.peer_address.info['name'] }}</td>
-            <td>{{ cls_cdr_record.alert_time.info['name'] }}</td>
-            <td>{{ cls_cdr_record.clid.info['name'] }}</td>
-            <td>{{ cls_cdr_record.dnis.info['name'] }}</td>
-            <td>{{ cls_cdr_record.h323_connect_time.info['name'] }}</td>
-            <td>{{ cls_cdr_record.h323_disconnect_time.info['name'] }}</td>
-            <td>{{ cls_cdr_record.h323_disconnect_cause.info['name'] }}</td>
-            <td>{{ cls_cdr_record.info_type.info['name'] }}</td>
-            <td>{{ cls_cdr_record.time_dif.info['name'] }}</td>
-        </tr>
-        </thead>
-
-        <tbody>
-        {% for i, cdr_record in enumerate(cdr_records) %}
-            {% if i !=0 %}
-                {% if cdr_record.h323_connect_time is not none
-                and cdr_records[i-1].h323_connect_time is not none
-                and int(cdr_record.h323_connect_time.strftime('%d')) != int(cdr_records[i-1].h323_connect_time.strftime('%d')) %}
-                    <tr class="sep">
-                        <td colspan="10">
-                            {{ cdr_record.h323_connect_time.strftime('%d.%m.%Y') }}
-                        </td>
-                    </tr>
-                {% endif %}
-            {% endif %}
-
-            <tr>
-                <td>{{ cdr_record.username }}</td>
-                <td>{{ cdr_record.peer_address }}</td>
-
-                <td>
-                    {% if cdr_record.alert_time != None %}
-                        {{ cdr_record.alert_time.strftime(config.VIEW_FORMAT_DATETIME) }}
-                    {% endif %}
-                </td>
-
-                <td>{{ cdr_record.clid }}</td>
-
-                <td>
-                    {% if cdr_record.dnis != None %}
-                        {{ cdr_record.dnis }}
-                    {% endif %}
-                </td>
-
-                <td>
-                    {% if cdr_record.h323_connect_time != None %}
-                        {{ cdr_record.h323_connect_time.strftime(config.VIEW_FORMAT_DATETIME) }}
-                    {% endif %}
-                </td>
-
-                <td>
-                    {% if cdr_record.h323_disconnect_time != None %}
-                        {{ cdr_record.h323_disconnect_time.strftime(config.VIEW_FORMAT_DATETIME) }}
-                    {% endif %}
-                </td>
-
-                <td>{{ cdr_record.h323_disconnect_cause }}</td>
-
-                <td>
-                    {% if cdr_record.info_type != None %}
-                        {{ cdr_record.info_type }}
-                    {% endif %}
-                </td>
-
-                <td style="text-align: right;">
-                    {% if cdr_record.time_dif is not none %}
-                        {{ decode_time_dif(cdr_record.time_dif) }}
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul class="paginator">
-        {% for i in range(0, paginator.count) %}
-            {% set p = i + 1 %}
-            {% if  paginator.current != i %}
-                <li><a href="?p={{ p }}">{{ p }}</a></li>
-            {% else %}
-                <li><a class="current" href="#">{{ p }}</a></li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+    <div class="layer-tb_data">
+        {% include '_blocks/_b_tb_data.html' %}
+    </div>
 
 {% endblock %}
 

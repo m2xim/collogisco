@@ -9,16 +9,12 @@ $(function () {
                 '>='
             ],
             _str_: [
-                '%',
-                '='
+                '=',
+                '%'
             ],
             _dt_: [
                 '<',
-                '>',
-                '=',
-                '!=',
-                '<=',
-                '>='
+                '>'
             ]
         },
         _mapping_filter = {
@@ -44,10 +40,35 @@ $(function () {
         }));
     });
 
-    $(document).on('click', '.btn-del-fb-f-i' ,function(){
-        console.log('.btn-del-fb-f-i: Delete filter item.')
-
+    $(document).on('click', '.btn-del-fb-f-i', function () {
+        console.log('.btn-del-fb-f-i: Delete filter item.');
         $(this).parents('li').remove();
+    });
+
+    $(document).on('click', '.btn-submit-fb-t', function () {
+        console.info('extract filters ...');
+        var _filter_coll = [];
+        $('.fb-filters ul').find('li').each(function () {
+            var _filter_set = {
+                f: $(this).find('.input-object-fb-f-i').attr('data-key'),
+                c: $(this).find('.input-filter-fb-f-i option:selected').val(),
+                v: $(this).find('.input-value-fb-f-i').val()
+            };
+            console.log(_filter_set);
+            _filter_coll.push(_filter_set);
+        });
+
+        console.info('send filter collection ...');
+        console.log(_filter_coll);
+
+        $.ajax({
+            url: '/api/get_by_filter',
+            method: 'POST',
+            dataType: 'html',
+            data: {fcoll: JSON.stringify(_filter_coll)}
+        }).done(function (msg) {
+            $('.layer-tb_data').html(msg);
+        });
     });
 
 });

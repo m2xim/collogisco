@@ -1,9 +1,12 @@
 import math
+import json
+
 import config
-from flask import render_template, send_from_directory, abort, redirect, request, jsonify
+from flask import render_template, send_from_directory, abort, redirect, request
 from app import app, get_version_app, models
 import os
 from utils import cdr, utils_model
+from utils.utils_model import UCdrRecordFilter
 
 __base_path__ = os.path.dirname(os.path.abspath(__file__))
 
@@ -25,9 +28,13 @@ def index():
         .limit(config.VIEW_LIMIT_VISIBLE_RECORDS) \
         .offset(page_current * config.VIEW_LIMIT_VISIBLE_RECORDS)
 
+    r = []
+    for cdrRec in cdrRecs:
+        r.append(cdrRec)
+
     return render_template(
         "_blocks/_b_main.html",
-        cdr_records=cdrRecs,
+        cdr_records=r,
         _version_=get_version_app(),
         paginator={
             'count': page_count,
@@ -59,6 +66,19 @@ def import_cdr_parse(source_id):
     cdrParser = cdr.CDRParser()
     cdrParser.parse(cdrSrc)
     return redirect('/import')
+
+
+@app.route('/api/get_by_filter', methods=['POST'])
+def api_get_by_filters():
+    filters = json.loads(request.form.get('fcoll'))
+
+    ucr = UCdrRecordFilter()
+    r = ucr.build(filters)
+
+    return render_template(
+        "_blocks/_b_tb_data.html",
+        cdr_records=r
+    )
 
 
 @app.route('/_static/<path:path>')
