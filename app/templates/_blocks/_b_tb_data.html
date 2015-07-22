@@ -5,6 +5,7 @@
         <td>{{ cls_cdr_record.peer_address.info['name'] }}</td>
         <td>{{ cls_cdr_record.clid.info['name'] }}</td>
         <td>{{ cls_cdr_record.dnis.info['name'] }}</td>
+        <td>Date</td>
         <td>{{ cls_cdr_record.h323_connect_time.info['name'] }}</td>
         <td>{{ cls_cdr_record.h323_disconnect_time.info['name'] }}</td>
         <td>{{ cls_cdr_record.time_dif.info['name'] }}</td>
@@ -47,12 +48,18 @@
             </td>
 
             <td>
+                {% if cdr_record.h323_connect_time is not none %}
+                    {{ cdr_record.h323_connect_time.strftime('%d.%m.%Y') }}
+                {% endif %}
+            </td>
+
+            <td style="text-align: center;">
                 {% if cdr_record.h323_connect_time != None %}
                     {{ cdr_record.h323_connect_time.strftime(config.VIEW_FORMAT_DATETIME) }}
                 {% endif %}
             </td>
 
-            <td>
+            <td style="text-align: center;">
                 {% if cdr_record.h323_disconnect_time != None %}
                     {{ cdr_record.h323_disconnect_time.strftime(config.VIEW_FORMAT_DATETIME) }}
                 {% endif %}

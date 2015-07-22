@@ -15,7 +15,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 CDR_DATA_PATH = os.path.join(basedir, '_data')
 CDR_DATA_FILENAME_MASK = 'cdr.*'
 
-VIEW_FORMAT_DATETIME = '%H:%M:%S %d.%m.%Y'
+VIEW_FORMAT_DATETIME = '%H:%M:%S'
 VIEW_LIMIT_VISIBLE_RECORDS = 1500
 
 FORMAT_DATETIME_FILTER = '%H:%M:%S %d.%m.%Y'
