@@ -152,12 +152,12 @@ ul.paginator li a.current {
 }
 
 #filter-box .fb-f-item .input-filter-fb-f-i {
-    width: 50px;
+    width: 80px;
 }
 
 #filter-box .fb-f-item .input-object-fb-f-i,
 #filter-box .fb-f-item .input-value-fb-f-i {
-    width: 280px;
+    width: 270px;
 }
 
 #filter-box .fb-f-item {

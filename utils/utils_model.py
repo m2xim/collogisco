@@ -2,6 +2,7 @@ import time
 import datetime
 from app import models
 import config
+from sqlalchemy.sql import func
 
 
 def get_columns_model_record():
@@ -111,7 +112,49 @@ class UCdrRecordFilter(object):
 
                     self.__query = self.__query.filter(getattr(models.CdrRecord, cname).like(val))
                 pass
-                # ---- begin COND : %
+                # ---- end COND : %
+            elif cond == 'not(%)':
+                # ---- begin COND : not(%)
+
+                if len(val) >= 2:
+                    if val[:1] == '%':
+                        val = '%' + val
+                    elif val[-1:] == '%':
+                        val += '%'
+
+                    self.__query = self.__query.filter(getattr(models.CdrRecord, cname).notlike(val))
+
+                pass
+                # ---- end COND : not(%)
+            elif cond == '= len(x)':
+                # ---- begin COND : = len(x)
+
+                self.__query = self.__query.filter(func.length(getattr(models.CdrRecord, cname)) == int(val))
+
+                pass
+                # ---- end COND : = len(x)
+            elif cond == '!= len(x)':
+                # ---- begin COND : = != len(x)
+
+                self.__query = self.__query.filter(func.length(getattr(models.CdrRecord, cname)) != int(val))
+
+                pass
+                # ---- end COND : = != len(x)
+            elif cond == '> len(x)':
+                # ---- begin COND : = > len(x)
+
+                self.__query = self.__query.filter(func.length(getattr(models.CdrRecord, cname)) > int(val))
+
+                pass
+                # ---- end COND : = > len(x)
+            elif cond == '< len(x)':
+                # ---- begin COND : = < len(x)
+
+                self.__query = self.__query.filter(func.length(getattr(models.CdrRecord, cname)) < int(val))
+
+                pass
+                # ---- end COND : = < len(x)
+
         self.__result = self.__query \
             .order_by(models.CdrRecord.unix_time.desc()) \
             .limit(config.VIEW_LIMIT_VISIBLE_RECORDS) \
